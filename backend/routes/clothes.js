@@ -30,18 +30,7 @@ router.post('/', uploadClothes, addClothes);
 router.put('/:id', uploadClothes, updateClothes);
 // 删除衣物
 router.delete('/:id', deleteClothes);
-// // routes/clothes.js
-// const { debugMulter } = require('../middleware/upload');
 
-// // 临时调试接口
-// router.post('/debug-upload', debugMulter, uploadClothes, (req, res) => {
-//   res.json({
-//     success: true,
-//     message: '调试成功',
-//     file: req.file ? req.file.originalname : '无文件',
-//     body: req.body
-//   });
-// });
 
 module.exports = router;
 

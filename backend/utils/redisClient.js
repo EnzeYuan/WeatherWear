@@ -1,6 +1,7 @@
 const redis = require('redis');
 require('dotenv').config();
 
+//redis config
 const REDIS_URL = process.env.REDIS_URL || 'redis://:19782100@192.168.129.131:6379';
 
 const client = redis.createClient({ url: REDIS_URL });
