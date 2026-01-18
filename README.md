@@ -79,9 +79,13 @@ npm run start
 ## App 截图
 
 > 请替换为真实截图路径（建议放到 `frontend/WeatherWear/assets/screenshots/`）
-
-![Login](frontend/WeatherWear/assets/images/login/logo.png)
-![Weather Outfit](frontend/WeatherWear/assets/images/WeatherOutfit/sunny.png)
-![Virtual Wardrobe](frontend/WeatherWear/assets/images/Closet/All.png)
-![Favorites](frontend/WeatherWear/assets/images/favorites/block.png)
+![Register](screenshot/Sign_Up.jpg)
+![Login](screenshot/Sign_In.jpg)
+![Home Page](screenshot/main_page.jpg)
+![Weather Outfit](screenshot/Weather_Detail.jpg)
+![Search Function](screenshot/Searchfunction_page.jpg)
+![Outfit Intercation Card](screenshot/OutfitCard_Page.jpg)
+![Virtual Wardrobe](screenshot/Clost_Page.jpg)
+![Profile](screenshot/Profile_Page.jpg)
+![Favorites](screenshot/Favorites_Page.jpg)
 
