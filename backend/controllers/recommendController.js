@@ -10,6 +10,7 @@ const { getSecondTagTemp, calculateOutfitTemp, calculateColorScore } = require('
  * 3. 颜色：黑/白作为万能基底；同色系深浅搭配；邻近色搭配
  */
 const recommendClothes = async (req, res) => {
+  console.log('recommendClothes');
   try {
     const userId = req.user.id;
     const { city, temperature, exclude } = req.query;
@@ -93,21 +94,21 @@ const recommendClothes = async (req, res) => {
       });
     }
 
-    // 审美原则：只在有多套合适的套装时才执行颜色评分排序
-    let bestOutfit;
-    let bestOutfitId;
-    let colorScore = 0;
-    if (outfits.length > 1) {
-      // 有多套时，按颜色搭配分数排序，选择最佳的搭配
-      outfits.sort((a, b) => b.colorScore - a.colorScore);
-      bestOutfit = outfits[0].outfit;
-      bestOutfitId = outfits[0].outfitId;
-      colorScore = outfits[0].colorScore;
-    } else if (outfits.length === 1) {
-      // 只有一套时，直接使用，不考虑颜色评分
-      bestOutfit = outfits[0].outfit;
-      bestOutfitId = outfits[0].outfitId;
-    }
+    // 评分规则：优先颜色评分，其次贴合温度（厚度差越小越好）
+    const sortedOutfits = outfits.sort((a, b) => {
+      if (b.colorScore !== a.colorScore) {
+        return b.colorScore - a.colorScore;
+      }
+      const diffA = Math.abs(a.thickness - targetThickness);
+      const diffB = Math.abs(b.thickness - targetThickness);
+      return diffA - diffB;
+    });
+
+    // 只返回最推荐的前10套
+    const topOutfits = sortedOutfits.slice(0, 10);
+    const bestOutfit = topOutfits[0]?.outfit || null;
+    const bestOutfitId = topOutfits[0]?.outfitId || null;
+    const colorScore = topOutfits[0]?.colorScore || 0;
 
     res.json({
       success: true,
@@ -118,8 +119,14 @@ const recommendClothes = async (req, res) => {
           targetThickness,
           outfit: bestOutfit,
           outfitId: bestOutfitId || null,
-          colorScore: colorScore,
-          availableCount: outfits.length
+          colorScore,
+          availableCount: outfits.length,
+          outfits: topOutfits.map((item) => ({
+            outfit: item.outfit,
+            outfitId: item.outfitId,
+            thickness: item.thickness,
+            colorScore: item.colorScore,
+          })),
         }
     });
   } catch (error) {
@@ -129,6 +136,7 @@ const recommendClothes = async (req, res) => {
       error: error.message
     });
   }
+  console.log('recommendClothes end');
 };
 
 /**
@@ -138,6 +146,7 @@ const recommendClothes = async (req, res) => {
  * @param {Array<string>} excludeOutfitIds - 要排除的搭配ID列表（格式：["topId-bottomId-shoeId"]）
  */
 function generateOutfits(clothesByMainTag, targetThickness, excludeOutfitIds = []) {
+  console.log('generateOutfits start');
   const outfits = [];
   
   // 必须有Top、Bottom、Shoes
@@ -232,8 +241,9 @@ function generateOutfits(clothesByMainTag, targetThickness, excludeOutfitIds = [
       }
     }
   }
-
-  return outfits;
+  console.log(outfits.slice(1, 10));
+  console.log('generateOutfits end');
+  return outfits.slice(1, 10);
 }
 
 module.exports = {
