@@ -1,25 +1,26 @@
 # WeatherWear
 
-WeatherWear 是一款集天气、穿搭推荐与虚拟衣橱于一体的移动应用。用户可以注册登录、管理衣物（增删改查+图片上传）、查看实时天气与穿搭推荐、收藏喜欢的套装，并根据温度筛选收藏内容。
+WeatherWear is a mobile application that integrates weather information, outfit recommendations, and a virtual wardrobe. Users can register and log in, manage clothing items (CRUD + image upload), view real-time weather and outfit recommendations, favorite preferred outfits, and filter favorites by temperature.
 
-## 项目结构
+## Project Structure
 
 ```
 WeatherWear/
-├─ backend/              # Node.js + Express 后端
-└─ frontend/WeatherWear/ # React Native + Expo 前端
+├─ backend/              # Node.js + Express 
+└─ frontend/WeatherWear/ # React Native + Expo 
 ```
 
-## 功能概览
+## Funtions Overview
 
-- 用户认证：登录/注册、JWT 鉴权、雪花算法生成ID
-- 个人资料：头像展示与上传
-- 虚拟衣橱：衣物管理、分类与搜索、图片上传
-- 天气信息：实时天气、详情页、小时/日预报
-- 穿搭推荐：按温度推荐套装，支持“换一换”
-- 收藏夹：收藏套装、温度筛选
+- User Authentication: Login/Registration, JWT authentication, Snowflake algorithm for ID generation
+- User Profile: Avatar display and upload
+- Virtual Wardrobe: Clothing management, categorization and search, image upload
+- Weather Information: Real-time weather, detail page, hourly/daily forecasts
+- Outfit Recommendations: Temperature-based outfit suggestions with "Refresh" functionality
 
-## 技术栈
+- Favorites: Save outfits, temperature filtering
+
+## Tech Stack
 
 **Frontend**
 - React Native + Expo
@@ -31,22 +32,22 @@ WeatherWear/
 **Backend**
 - Node.js + Express
 - Sequelize + MySQL
-- JWT 认证
-- Multer 文件上传
-- Redis 缓存（天气接口）
+- JWT Authentication + SnowFlake
+- Multer for file upload
+- Redis caching (for weather API)
 
-## 安装与运行
+## Installation and Running
 
-### 1) 后端
+### 1) Backend
 
 ```bash
 cd backend
 npm install
 ```
 
-配置环境变量（如数据库、JWT、Redis），可参考 `backend/ENV_SETUP.md`。
+Configure environment variables (e.g., database, JWT, Redis), refer to `backend/ENV_SETUP.md`.
 
-启动后端：
+Start the backend:
 
 ```bash
 npm run dev
@@ -54,31 +55,36 @@ npm run dev
 npm start
 ```
 
-默认地址：`http://localhost:5000`
+Default address: `http://localhost:5000`
 
-### 2) 前端
+### 2) Frontend
 
 ```bash
 cd frontend/WeatherWear
 npm install
 ```
 
-配置 API 地址（任选其一）：
+Configure API address (choose one):
 
-- 修改 `frontend/WeatherWear/constants/config.ts` 中的 `API_BASE_URL`
-- 或设置 `EXPO_PUBLIC_API_BASE_URL` 环境变量
+- Modify  `API_BASE_URL` in `frontend/WeatherWear/constants/config.ts` 
+- Or set `EXPO_PUBLIC_API_BASE_URL` environment variable
 
-启动前端：
+
+Some installment:
+
+- Using react-native-linear-gradient for gradient backgrounds `npm install react-native-linear-gradient`
+- Using react-native-image-crop-picker for image selection `npm install react-native-image-crop-picker --save`
+
+Start the frontend
 
 ```bash
-npm run start
+npx expo start --offline
 ```
+PS: You may use VPN to access our app (weather forecast API is abroad)
+Then run using Expo Go!
 
-然后使用 Expo Go 或模拟器运行。
+## App screenshot
 
-## App 截图
-
-> 请替换为真实截图路径（建议放到 `frontend/WeatherWear/assets/screenshots/`）
 ![Register](screenshot/Sign_Up.jpg)
 ![Login](screenshot/Sign_In.jpg)
 ![Home Page](screenshot/main_page.jpg)
