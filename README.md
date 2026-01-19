@@ -51,7 +51,7 @@ Start the backend:
 
 ```bash
 npm run dev
-# 或
+# or
 npm start
 ```
 
